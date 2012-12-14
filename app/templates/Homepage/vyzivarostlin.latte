@@ -1,0 +1,105 @@
+{block nadpis}
+Výživa rostlin
+{/block}
+{block content}
+<div class="leftbox">
+    <h1>{$menu}</h1>
+    {if $menu == 'Listová hnojiva'}
+    <table id="dokumenty_table">
+        <thead>
+            <tr >
+                <th>Název přípravku</th>
+                <th>Registrační číslo</th>
+                <th>Držitel registrace</th>
+                <th>Druh registrace</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Listová hnojiva</td>
+                <td><a href="" target="_blank"></a></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    {/if}
+    {if $menu == 'Speciální hnojiva'}
+    <table id="dokumenty_table">
+        <thead>
+            <tr >
+                <th>Název přípravku</th>
+                <th>Registrační číslo</th>
+                <th>Držitel registrace</th>
+                <th>Druh registrace</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Speciální hnojiva</td>
+                <td><a href="" target="_blank"></a></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    {/if}
+    {if $menu == 'Ostatní'}
+    <table id="dokumenty_table">
+        <thead>
+            <tr >
+                <th>Název přípravku</th>
+                <th>Registrační číslo</th>
+                <th>Držitel registrace</th>
+                <th>Druh registrace</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Ostatní</td>
+                <td><a href="" target="_blank"></a></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    {/if}
+</div>
+<div class="imagebox"><img src="{$basePath}/images/klas.png"/></div>
+<div class="leftbox_noborder">
+    <div class="imagebox">
+        <a n:href="about">
+            <div class="left_menu_item">O společnosti</div>
+        </a>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="http://jush.sourceforge.net/jush.js"></script>
+<script>
+    jush.create_links = false;
+    jush.highlight_tag('code');
+    $('code.jush').each(function(){ $(this).html($(this).html().replace(/\x7B[/$\w].*?\}/g, '<span class="jush-latte">$&</span>')) });
+
+    $('a[href^=#]').click(function(){
+        $('html,body').animate({ scrollTop: $($(this).attr('href')).show().offset().top - 5 }, 'fast');
+        return false;
+    });
+</script>
+{/block}
+
+
+{block head}
+{/block}
