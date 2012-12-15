@@ -1,0 +1,49 @@
+{block nadpis}
+Dokumenty ke stažení
+{/block}
+{block content}
+<div class="leftbox">
+    <table id="dokumenty_table">
+	<thead>
+	    <tr>
+		<th>Logistika</th>
+		<th>Rostlinolékařská praxe</th>
+		<th>SRS</th>
+		<th>Obchod</th>
+	    </tr>
+	</thead>
+	<tbody>
+	    <tr>
+		<td>Bezpečnostní listy</td>
+                <td><a href="http://eagri.cz/public/web/srs/portal/pripravky-na-or/etikety-pripravku-na-or.html" target="_blank">Etikety</a></td>
+		<td></td>
+		<td></td>
+	    </tr>
+	    <tr>
+                <td><a href="http://www.mdcr.cz/cs/Silnicni_doprava/Nakladni_doprava/adr/ADR+2011+-+ke+sta%C5%BEen%C3%AD/ADR+2011.htm" target="_blank">ADR 2011</a></td>
+                <td><a href="http://eagri.cz/public/web/srs/portal/pripravky-na-or/sdeleni-novinky/pripravky-pro-profes-pouz.html" target="_blank">Přípravky povole-né pro profesio-nální použití </a></td>
+		<td></td>
+		<td></td>
+	    </tr>
+	</tbody>
+    </table>
+
+			
+</div>
+<div class="imagebox"><img src="{$basePath}/images/dokumenty.png"/></div>
+<script src="http://jush.sourceforge.net/jush.js"></script>
+<script>
+	jush.create_links = false;
+	jush.highlight_tag('code');
+	$('code.jush').each(function(){ $(this).html($(this).html().replace(/\x7B[/$\w].*?\}/g, '<span class="jush-latte">$&</span>')) });
+
+	$('a[href^=#]').click(function(){
+		$('html,body').animate({ scrollTop: $($(this).attr('href')).show().offset().top - 5 }, 'fast');
+		return false;
+	});
+</script>
+{/block}
+
+
+{block head}
+{/block}

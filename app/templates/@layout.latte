@@ -1,0 +1,68 @@
+{**
+ * My Application layout template.
+ *
+ * @param string   $basePath web base path
+ * @param string   $robots   tell robots how to index the content of a page (optional)
+ * @param array    $flashes  flash messages
+ *}
+
+<!DOCTYPE html>
+<html>
+    <head>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="robots" content="{$robots}" n:ifset="$robots">
+
+	<title>{block title|striptags|upper}Argo Haná, a.s.{/block}</title>
+
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css" type="text/css">
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css">
+	<link rel="stylesheet" media="print" href="{$basePath}/css/print.css">
+	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
+	{block head}{/block}
+    </head>
+
+    <body>
+	<script>document.body.className+=' js' </script>
+
+	<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+	<div id="banner">    
+	    <img src="{$basePath}/images/logo.jpg"/>
+	    <div id="rightbox">
+		<div id="mail">783 53 Velká Bystřice</div>
+		<div id="tel">+420 585 110 323</div>
+		<div id="fax">+420 585 110 334</div>
+		<div id="email">argohana@argohana.cz</div>
+	    </div>
+	</div>
+	<div id="main_menu">
+	    <a n:href="default">
+		<div class="left_menu_item">O společnosti</div></a>
+	    <a n:href="about">
+		<div class="menu_item">About company</div>
+	    </a>
+	    <a n:href="motto">
+		<div class="menu_item">Naše motto</div>
+	    </a>
+	    <a n:href="dokumenty">
+		<div class="menu_item">Dokumenty</div>
+	    </a>
+	    <a n:href="kontakty">
+		<div class="right_menu_item">Kontakty</div>
+	    </a>
+	</div>
+	<div id="top">
+	{include #nadpis}
+	</div>
+	{include #content}
+
+	<footer>Agro Haná, Velká Bystřice, e-mail: argohana@argohana.cz</footer>
+    </div>
+
+	{block scripts}
+    <script src="{$basePath}/js/jquery.js"></script>
+    <script src="{$basePath}/js/netteForms.js"></script>
+    <script src="{$basePath}/js/main.js"></script>
+	{/block}
+</body>
+</html>

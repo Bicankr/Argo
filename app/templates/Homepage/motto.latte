@@ -1,0 +1,46 @@
+{* This is the welcome page, you can delete it *}
+{block nadpis}
+Naše motto
+{/block}
+{block content}
+<div class="leftbox">
+    <h2>Motto:</h2>
+„Díky našemu společnému postupu jsme dostatečně silní, díky odbornosti i mnohaletým praktickým zkušenostem  jsme dostatečně erudovaní a díky Vaší dosavadní spokojenosti jsme dostatečně motivovaní na to, abychom Vám poskytovali servis v prvotřídní kvalitě. Zároveň jsme dostatečně operativní a flexibilní, abychom se Vám mohli věnovat podle Vašich aktuálních požadavků a s maximální péčí.“
+
+<h2>ARGO HANÁ, a.s.</h2>
+
+</div>
+<div class="imagebox"><img src="{$basePath}/images/klas.png"/></div>
+<div class="leftbox_noborder">
+<div class="imagebox"><img src="{$basePath}/images/loga.png"/></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="http://jush.sourceforge.net/jush.js"></script>
+<script>
+	jush.create_links = false;
+	jush.highlight_tag('code');
+	$('code.jush').each(function(){ $(this).html($(this).html().replace(/\x7B[/$\w].*?\}/g, '<span class="jush-latte">$&</span>')) });
+
+	$('a[href^=#]').click(function(){
+		$('html,body').animate({ scrollTop: $($(this).attr('href')).show().offset().top - 5 }, 'fast');
+		return false;
+	});
+</script>
+{/block}
+
+
+{block head}
+{/block}

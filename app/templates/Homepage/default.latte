@@ -1,0 +1,32 @@
+{* This is the welcome page, you can delete it *}
+{block nadpis}
+O společnosti
+{/block}
+{block content}
+<div class="leftbox">
+    Společnost <b>ARGO HANÁ, a.s.</b> byla založena v roce 1996 jako servisní organizace zabezpečující společný nákup přípravků na ochranu rostlin především pro své akcionáře – moravské distributory působící na území téměř celé Moravy. Tuto funkci plní úspěšně do dnešního dne.<br/><br/> 
+     V posledních letech jsou jejími akcionáři <b>AG.FINAL s.r.o.</b>, <b>AGROHOW, spol. s r.o.</b>, <b>ZETASPOL, s.r.o.</b> a oblast působení se koncentrovala především v zemědělsky nejproduktivnější moravské oblasti – na Hané a na Severní Moravě, konkrétně na Opavsku.<br><br>
+     Úzce spolupracuje s dalšími sesterskými organizacemi akcionářů. S firmou <b>UK.DITANA s.r.o.</b> v oblasti obchodní i logistické a <b>DITANA s.r.o.</b> v oblasti polního pokusnictví, poradenství a sledování nových trendů v ochraně rostlin. Výše uvedené firmy představují společně team vysoce kvalifikovaných a erudovaných odborníků v oblasti pěstování a ochrany rostlin, poskytujících svoje know how jako přidanou hodnotu k prodávanému zboží.<br><br>
+     Dlouhodobě udržuje a úspěšně rozvíjí obchodní spolupráci s některými významných distributory pesticidů v dalších regionech České republiky, takže buď přímo nebo zprostředkovaně je schopna oslovit převážnou většinu podniků zabývajících se rostlinnou produkcí.<br><br>
+     Naším společným cílem je, aby společnost <b>ARGO HANÁ, a.s.</b> stejně jako bájná loď <b>Argó</b> co nejdéle úspěšně proplouvala rozbouřenými vodami českého trhu s přípravky na ochranu rostlin.
+     <h2>Ing. Radomír Běhal</h2>
+     <h2>předseda představenstva</h2>
+			
+</div>
+<div class="imagebox"><img src="{$basePath}/images/About.png"/></div>
+<script src="http://jush.sourceforge.net/jush.js"></script>
+<script>
+	jush.create_links = false;
+	jush.highlight_tag('code');
+	$('code.jush').each(function(){ $(this).html($(this).html().replace(/\x7B[/$\w].*?\}/g, '<span class="jush-latte">$&</span>')) });
+
+	$('a[href^=#]').click(function(){
+		$('html,body').animate({ scrollTop: $($(this).attr('href')).show().offset().top - 5 }, 'fast');
+		return false;
+	});
+</script>
+{/block}
+
+
+{block head}
+{/block}
