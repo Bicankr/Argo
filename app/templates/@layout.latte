@@ -27,7 +27,7 @@
 
 	<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
 	<div id="banner">    
-	    <img src="{$basePath}/images/logo.jpg"/>
+            <a n:href="default"><img src="{$basePath}/images/logo.jpg"/></a>
 	    <div id="rightbox">
 		<div id="mail">783 53 Velká Bystřice</div>
 		<div id="tel">+420 585 110 323</div>
@@ -36,7 +36,7 @@
 	    </div>
 	</div>
 	<div id="main_menu">
-	    <a n:href="default">
+	    <a n:href="ospolecnosti">
 		<div class="left_menu_item">O společnosti</div></a>
 	    <a n:href="about">
 		<div class="menu_item">About company</div>
