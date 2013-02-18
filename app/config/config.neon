@@ -16,19 +16,22 @@ common:
 			errorPresenter: Error
 
 		database:
-			dsn: 'mysql:host=localhost;dbname=test'
-			user:
-			password:
+			dsn: 'mysql:host=localhost;dbname=zednik'
+			user: zednik
+			password: vcudrveq
 
 		session:
 			expiration: 14 days
 
 
 	services:
-		authenticator: Authenticator
+		authenticator: Todo\Authenticator
 		routerFactory: RouterFactory
 		router: @routerFactory::createRouter
-
+		ochrana_rostlinRepository: Todo\Ochrana_rostlinRepository
+		taskRepository: Todo\TaskRepository
+		userRepository: Todo\UserRepository
+		listRepository: Todo\ListRepository
 
 	factories:
 

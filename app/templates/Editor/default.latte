@@ -1,0 +1,19 @@
+{block nadpis}
+Editor
+{/block}
+{block content}
+
+{if $user->isLoggedIn()}
+<h2><a n:href="Homepage:">Ochrana rostlin</a></h2>
+{/if}
+
+id - {$id}
+<div class="task-lists">
+    <table>
+    {foreach $ochrana_rostlin as $val}
+	<tr><td>{$val->text}</td><td>{$val->odkaz}</td><td><a n:href="Editor: $val->id">{$val->text}</a></td></tr>
+    {/foreach}
+    </table>
+
+
+{/block}
