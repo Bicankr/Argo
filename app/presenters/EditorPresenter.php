@@ -7,15 +7,16 @@ class EditorPresenter extends BasePresenter {
     private $listRepository;
     private $taskRepository;
     private $userRepository;
-    private $list;
+    private $ochrana_rostlinRepository;
     private $ochrana_rostlin;
+    private $list;
     private $id;
 
     public function inject(Todo\TaskRepository $taskRepository, Todo\ListRepository $listRepository, Todo\UserRepository $userRepository, Todo\Ochrana_rostlinRepository $ochrana_rostlinRepository) {
 	$this->taskRepository = $taskRepository;
 	$this->listRepository = $listRepository;
 	$this->userRepository = $userRepository;
-	$this->ochrana_rostlin = $ochrana_rostlinRepository;
+	$this->ochrana_rostlinRepository = $ochrana_rostlinRepository;
     }
 
     protected function startup() {
@@ -26,7 +27,7 @@ class EditorPresenter extends BasePresenter {
     }
 
     public function actionDefault($id) {
-	$this->ochrana_rostlin = $this->ochrana_rostlin->findAll();
+	$this->ochrana_rostlin = $this->ochrana_rostlinRepository->findAll();
 	$this->id = $id;
     }
 
@@ -43,7 +44,8 @@ class EditorPresenter extends BasePresenter {
 		->addRule(Form::FILLED, 'Je nutné zadat http odkaz.');
 	$form->addHidden('id', $this->id);
 	$form->addSubmit('create', 'Uložit');
-	$form->setDefaults(array('text' => $this->id, 'odkaz' => 'odkaz'));
+	$row = $this->ochrana_rostlinRepository->findBy(array('id' => $this->id));
+	$form->setDefaults(array('text' => $row->text, 'odkaz' => $row->odkaz));
 	$form->onSuccess[] = $this->ochrana_rostlinFormSubmitted;
 	return $form;
     }
@@ -52,10 +54,9 @@ class EditorPresenter extends BasePresenter {
      * @param  Nette\Application\UI\Form $form
      */
     public function ochrana_rostlinFormSubmitted(Form $form) {
-	$this->findBy(array('id' => $form->values->id))->update(array('text' => $form->values->text, 'odkaz' => $form->values->odkaz));
+	$this->ochrana_rostlinRepository->findBy(array('id' => $form->values->id))->update(array('text' => $form->values->text, 'odkaz' => $form->values->odkaz));
 
-
-
+	$this->id = NULL;
 	if (!$this->isAjax()) {
 	    $this->redirect('this');
 	}
