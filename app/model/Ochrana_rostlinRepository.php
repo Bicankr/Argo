@@ -6,6 +6,10 @@ use Nette;
 
 class Ochrana_rostlinRepository extends Repository {
 
+    public function aktualizuj($id, $text, $odkaz) {
+	$this->findBy(array('id' => $id))->update(array('text' => $text, 'odkaz' => $odkaz));
+    }
+
     /**
      * Vrací seznam nehotových úkolů.
      * @return Nette\Database\Table\Selection
@@ -20,7 +24,7 @@ class Ochrana_rostlinRepository extends Repository {
     public function findIncompleteByUser($userId) {
 	return $this->findIncomplete()->where(array(
 		    'user_id' => $userId
-	));
+		));
     }
 
     /**
@@ -35,14 +39,7 @@ class Ochrana_rostlinRepository extends Repository {
 		    'user_id' => $assignedUser,
 		    'created' => new \DateTime(),
 		    'list_id' => $listId,
-	));
-    }
-
-    /**
-     * @param int $id
-     */
-    public function markDone($id) {
-	$this->findBy(array('id' => $id))->update(array('done' => 1));
+		));
     }
 
 }

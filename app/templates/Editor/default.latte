@@ -11,9 +11,15 @@ id - {$id}
 <div class="task-lists">
     <table>
     {foreach $ochrana_rostlin as $val}
+	{if $id == $val->id}
+	<tr><td colspan="3"><fieldset>
+		    <legend>Editace odkazu</legend>
+		    {control ochrana_rostlinForm}
+		</fieldset></td></tr>
+	{else}
 	<tr><td>{$val->text}</td><td>{$val->odkaz}</td><td><a n:href="Editor: $val->id">{$val->text}</a></td></tr>
+	{/if}
     {/foreach}
     </table>
-
 
 {/block}

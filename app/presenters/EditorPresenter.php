@@ -2,11 +2,6 @@
 
 use Nette\Application\UI\Form;
 
-/**
- * Presenter, který zajišťuje výpis seznamů úkolů.
- *
- * @property callable $taskFormSubmitted
- */
 class EditorPresenter extends BasePresenter {
 
     private $listRepository;
@@ -25,7 +20,6 @@ class EditorPresenter extends BasePresenter {
 
     protected function startup() {
 	parent::startup();
-
 	if (!$this->getUser()->isLoggedIn()) {
 	    $this->redirect('Sign:in');
 	}
@@ -41,63 +35,30 @@ class EditorPresenter extends BasePresenter {
 	$this->template->ochrana_rostlin = $this->ochrana_rostlin;
     }
 
-    /**
-     * @return Todo\TaskListControl
-     */
-    protected function createComponentTaskList() {
-	if ($this->list === NULL) {
-	    $this->error('Wrong action');
-	}
-
-	return new Todo\TaskListControl($this->listRepository->tasksOf($this->list), $this->taskRepository);
-    }
-
-    /**
-     * @return Nette\Application\UI\Form
-     */
-    protected function createComponentTaskForm() {
-	$userPairs = $this->userRepository->findAll()->fetchPairs('id', 'name');
-
+    protected function createComponentOchrana_rostlinForm() {
 	$form = new Form();
-	$form->addText('text', 'Úkol:', 40, 100)
-		->addRule(Form::FILLED, 'Je nutné zadat text úkolu.');
-	$form->addSelect('userId', 'Pro:', $userPairs)
-		->setPrompt('- Vyberte -')
-		->addRule(Form::FILLED, 'Je nutné vybrat, komu je úkol přiřazen.')
-		->setDefaultValue($this->getUser()->getId());
-
-	$form->addSubmit('create', 'Vytvořit');
-	$form->onSuccess[] = $this->taskFormSubmitted;
-
+	$form->addText('text', 'Text:', 40, 100)
+		->addRule(Form::FILLED, 'Je nutné zadat text odkazu.');
+	$form->addText('odkaz', 'Odkaz:', 40, 100)
+		->addRule(Form::FILLED, 'Je nutné zadat http odkaz.');
+	$form->addHidden('id', $this->id);
+	$form->addSubmit('create', 'Uložit');
+	$form->setDefaults(array('text' => $this->id, 'odkaz' => 'odkaz'));
+	$form->onSuccess[] = $this->ochrana_rostlinFormSubmitted;
 	return $form;
     }
 
     /**
      * @param  Nette\Application\UI\Form $form
      */
-    public function taskFormSubmitted(Form $form) {
-	$this->taskRepository->createTask($this->list->id, $form->values->text, $form->values->userId);
-	$this->flashMessage('Úkol přidán.', 'success');
+    public function ochrana_rostlinFormSubmitted(Form $form) {
+	$this->findBy(array('id' => $form->values->id))->update(array('text' => $form->values->text, 'odkaz' => $form->values->odkaz));
+
+
+
 	if (!$this->isAjax()) {
 	    $this->redirect('this');
 	}
-
-	$form->setValues(array('userId' => $form->values->userId), TRUE);
-	$this->invalidateControl('form');
-	$this['taskList']->invalidateControl();
-    }
-
-    protected function createComponentOchrana_rostlinForm() {
-	$userPairs = $this->userRepository->findAll()->fetchPairs('id', 'name');
-
-	$form = new Form();
-	$form->addText('text', 'Úkol:', 40, 100)
-		->addRule(Form::FILLED, 'Je nutné zadat text úkolu.');
-	$form->addSelect('userId', 'Pro:', $userPairs)
-		->setPrompt('- Vyberte -')
-		->addRule(Form::FILLED, 'Je nutné vybrat, komu je úkol přiřazen.');
-	$form->addSubmit('create', 'Vytvořit');
-	return $form;
     }
 
 }
