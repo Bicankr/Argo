@@ -9,7 +9,6 @@ class EditorPresenter extends BasePresenter {
     private $userRepository;
     private $ochrana_rostlinRepository;
     private $ochrana_rostlin;
-    private $list;
     private $id;
 
     public function inject(Todo\TaskRepository $taskRepository, Todo\ListRepository $listRepository, Todo\UserRepository $userRepository, Todo\Ochrana_rostlinRepository $ochrana_rostlinRepository) {
@@ -31,12 +30,13 @@ class EditorPresenter extends BasePresenter {
 	$this->id = $id;
     }
 
-    public function renderDefault($id = 0) {
+    public function renderDefault() {
 	$this->template->id = $this->id;
 	$this->template->ochrana_rostlin = $this->ochrana_rostlin;
+	//$this->template->addORForm = $this->AddOchrana_rostlinForm();
     }
 
-    protected function createComponentOchrana_rostlinForm() {
+    protected function createComponentORForm() {
 	$form = new Form();
 	$form->addText('text', 'Text:', 40, 100)
 		->addRule(Form::FILLED, 'Je nutné zadat text odkazu.');
@@ -44,21 +44,51 @@ class EditorPresenter extends BasePresenter {
 		->addRule(Form::FILLED, 'Je nutné zadat http odkaz.');
 	$form->addHidden('id', $this->id);
 	$form->addSubmit('create', 'Uložit');
-	$row = $this->ochrana_rostlinRepository->findBy(array('id' => $this->id));
-	$form->setDefaults(array('text' => $row->text, 'odkaz' => $row->odkaz));
-	$form->onSuccess[] = $this->ochrana_rostlinFormSubmitted;
+	$form->addSubmit('delete', 'Smazat')
+		->onClick[] = callback($this, 'ORFormDelete');
+	;
+
+	$rows = $this->ochrana_rostlinRepository->findBy(array('id' => $this->id));
+	foreach ($rows as $row) {
+	    $form->setDefaults(array('text' => $row->text, 'odkaz' => $row->odkaz));
+	}
+	$form->onSuccess[] = $this->ORFormSubmitted;
 	return $form;
     }
 
-    /**
-     * @param  Nette\Application\UI\Form $form
-     */
-    public function ochrana_rostlinFormSubmitted(Form $form) {
+    public function ORFormSubmitted(Form $form) {
 	$this->ochrana_rostlinRepository->findBy(array('id' => $form->values->id))->update(array('text' => $form->values->text, 'odkaz' => $form->values->odkaz));
-
-	$this->id = NULL;
+	$this->id = 0;
 	if (!$this->isAjax()) {
-	    $this->redirect('this');
+	    $this->redirect('this', 0);
+	}
+    }
+
+    public function ORFormDelete(Nette\Forms\Controls\SubmitButton $btn) {
+	$values = $btn->form->getValues();
+	$this->ochrana_rostlinRepository->findBy(array('id' => $values->id))->delete();
+	$this->id = 0;
+	if (!$this->isAjax()) {
+	    $this->redirect('this', 0);
+	}
+    }
+
+    protected function createComponentAddORForm() {
+	$form = new Form();
+	$form->addText('text', 'Text:', 40, 100)
+		->addRule(Form::FILLED, 'Je nutné zadat text odkazu.');
+	$form->addText('odkaz', 'Odkaz:', 40, 100)
+		->addRule(Form::FILLED, 'Je nutné zadat http odkaz.');
+	$form->addHidden('id', $this->id);
+	$form->addSubmit('create', 'Nový');
+	$form->onSuccess[] = $this->addOchrana_rostlinFormSubmitted;
+	return $form;
+    }
+
+    public function addOchrana_rostlinFormSubmitted(Form $form) {
+	$this->ochrana_rostlinRepository->findAll()->insert(array('text' => $form->values->text, 'odkaz' => $form->values->odkaz));
+	if (!$this->isAjax()) {
+	    $this->redirect('this', 0);
 	}
     }
 

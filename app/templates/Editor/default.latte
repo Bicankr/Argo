@@ -6,20 +6,23 @@ Editor
 {if $user->isLoggedIn()}
 <h2><a n:href="Homepage:">Ochrana rostlin</a></h2>
 {/if}
-
-id - {$id}
 <div class="task-lists">
     <table>
+	<thead><tr><th>Text</th><th>Odkaz</th></tr></thead>
+	<tbody>
+	    {form addORForm}
+	    <tr><td>{input text size => 30}</td><td>{input odkaz size => 30}</td><td>{input create text => "Odeslat formulář"}</td></tr>
+	    {/form}
     {foreach $ochrana_rostlin as $val}
 	{if $id == $val->id}
-	<tr><td colspan="3"><fieldset>
-		    <legend>Editace odkazu</legend>
-		    {control ochrana_rostlinForm}
-		</fieldset></td></tr>
+	    <tr><td colspan="3">
+	    {form oRForm}
+	    <tr><td>{input text size => 30}</td><td>{input odkaz size => 30}</td><td>{input create text => "Odeslat formulář"}{input delete text => "Odeslat formulář"}</td></tr>
+	    {/form}
 	{else}
-	<tr><td>{$val->text}</td><td>{$val->odkaz}</td><td><a n:href="Editor: $val->id">{$val->text}</a></td></tr>
+	    <tr><td>{$val->text}</td><td>{$val->odkaz}</td><td><a n:href="Editor: $val->id">Editovat</a></td></tr>
 	{/if}
     {/foreach}
+	</tbody>
     </table>
-
 {/block}
