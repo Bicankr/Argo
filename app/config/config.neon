@@ -29,9 +29,8 @@ common:
 		routerFactory: RouterFactory
 		router: @routerFactory::createRouter
 		ochrana_rostlinRepository: Todo\Ochrana_rostlinRepository
-		taskRepository: Todo\TaskRepository
 		userRepository: Todo\UserRepository
-		listRepository: Todo\ListRepository
+		hnojivaRepository: Todo\HnojivaRepository
 
 	factories:
 

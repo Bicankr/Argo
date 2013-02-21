@@ -1,0 +1,27 @@
+{block nadpis}
+Editor
+{/block}
+{block content}
+
+{if $user->isLoggedIn()}
+<h2><a n:href="Homepage:">Ochrana rostlin</a></h2>
+{/if}
+<div class="task-lists">
+    <table>
+	<thead><tr><th>Text</th><th>Odkaz</th></tr></thead>
+	<tbody>
+	    {form addHnojiva}
+	    <tr><td>{input nazev_pripravku size => 30}</td><td>{input registracni_cislo size => 30}</td><td>{input drzitel_registrace size => 30}</td><td>{input druh_registrace size => 30}</td><td>{input create text => "Odeslat formulář"}</td></tr>
+	    {/form}
+    {foreach $hnojiva as $val}
+	{if $id == $val->id}
+	    <tr><td colspan="3">
+	    {form editHnojiva}
+	    <tr><td>{input nazev_pripravku size => 30}</td><td>{input registracni_cislo size => 30}</td><td>{input drzitel_registrace size => 30}</td><td>{input druh_registrace size => 30}</td><td>{input save text => "Odeslat formulář"}</td></tr>{/form}
+	{else}
+	    <tr><td>{$val->text}</td><td>{$val->odkaz}</td><td><a n:href="Editor: $val->id">Editovat</a></td></tr>
+	{/if}
+    {/foreach}
+	</tbody>
+    </table>
+{/block}
